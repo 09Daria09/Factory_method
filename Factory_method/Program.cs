@@ -6,77 +6,91 @@ using System.Threading.Tasks;
 
 namespace Factory_method
 {
-        abstract class CreateTransport
+    abstract class CreateTransport
+    {
+        public abstract ITransport Create();
+    }
+
+    class SeaCreator : CreateTransport
+    {
+        public override ITransport Create()
         {
-            public abstract ITransport Create();
+            return new SeaVessels();
+        }
+    }
+    class RoadCreator : CreateTransport
+    {
+        public override ITransport Create()
+        {
+            return new Truck();
+        }
+    }
+    public class Truck : ITransport
+    {
+        public double Cost { get; set; }
+        public string Del { get; set; }
+        public double Dist { get; set; }
+        public double Fuel { get; set; }
+        public Truck(double cost, string del, double dist, double fuel)
+        {
+            Cost = cost;
+            Del = del;
+            Dist = dist;
+            Fuel = fuel;
+        }
+        public Truck() { }
+
+        public double CostDelivery()
+        {
+            return Cost;
+        }
+        public void Deliver()
+        {
+            Console.WriteLine(Del);
+        }
+        public double Distance()
+        {
+            return Dist;
+        }
+        public double FuelConsumption()
+        {
+            return Fuel;
+        }
+    }
+    public class SeaVessels : ITransport
+    {
+        public double Cost { get; set; }
+        public string Del { get; set; }
+        public double Dist { get; set; }
+        public double Fuel { get; set; }
+
+        public double CostDelivery()
+        {
+            return Cost;
         }
 
-        class SeaCreator : CreateTransport 
+        public void Deliver()
         {
-            public override ITransport Create()
-            {                
-                return new SeaVessels();
-            }
+            Console.WriteLine(Del);
         }
-        class RoadCreator : CreateTransport
+
+        public double Distance()
         {
-            public override ITransport Create()
-            {
-                return new Truck();
-            }
+            return Dist;
         }
-        public class Truck : ITransport
+
+        public double FuelConsumption()
         {
-
-            public double CostDelivery()
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Deliver()
-            {
-                throw new NotImplementedException();
-            }
-
-            public double Distance()
-            {
-                throw new NotImplementedException();
-            }
-
-            public double FuelConsumption()
-            {
-                throw new NotImplementedException();
-            }
+            return Fuel;
         }
-        public class SeaVessels : ITransport
-        {
-            public double CostDelivery()
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Deliver()
-            {
-                throw new NotImplementedException();
-            }
-
-            public double Distance()
-            {
-                throw new NotImplementedException();
-            }
-
-            public double FuelConsumption()
-            {
-                throw new NotImplementedException();
-            }
-        }
-        public interface ITransport
-        {
-            void Deliver();
-            double FuelConsumption();
-            double CostDelivery();
-            double Distance();
-        }
+    }
+    public interface ITransport
+    {
+        void Deliver();
+        double FuelConsumption();
+        double CostDelivery();
+        double Distance();
+    }
 
 
     public class Program
